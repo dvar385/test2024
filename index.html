@@ -28,9 +28,24 @@ head {
   <label>Last name:</label>
   <input type="text" id="lname">
 <br>
-  <input type="button">Submit</input>
+  <input type="button" value="submit onclick=showAlert()">
 </form>
-<p></p>
+<script>
+  function showAlert() {
+    let fname = document.getElementById("fname");
+    let lname = document.getElementById("lname");
+    if (fname=" " and lname=" ")
+      alert("enter your name!");
+    else
+      if (fname=" ")
+        alert("enter your first name!");
+      else 
+        if (lname=" ")
+          alert("enter your last name!");
+        else
+          alert("your name is " + fname + " " + lname+"-san");
+    
+</script>
   
 </body>
 </html>
