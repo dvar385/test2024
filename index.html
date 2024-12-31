@@ -2,7 +2,7 @@
   
 <style>
 body {background-color: powderblue;}
-h1   {
+h2   {
   color: blue;
   font-size:30;
 }
@@ -10,17 +10,17 @@ p    {
   color: black;
   font-size:13;
 }
-head {
+h1 {
   color: black;
   font-size:40;
 }
 </style>
   
 <body>
-<head>Welcome to Jura Tempest Federation</head>
-<br>
-<h1>Please enter your details below for us to </h1>
-<br>
+<h1>Welcome to Jura Tempest Federation</h1>
+
+<h2>Please enter your details below for us to </h2>
+
 <form>
   <label>First name:</label>
   <input type="text" id="fname">
@@ -28,23 +28,23 @@ head {
   <label>Last name:</label>
   <input type="text" id="lname">
 <br>
-  <input type="button" value="submit" onclick=showAlert()>
+  <input type="button" value="submit" onclick="showAlert()">
 </form>
 <script>
   function showAlert() {
-    let fname = document.getElementById("fname");
-    let lname = document.getElementById("lname");
-    if (fname=" " and lname=" ")
+    let firstname = document.getElementById("fname").value;
+    let lastname = document.getElementById("lname").value;
+    if (firstname=="" && lastname=="")
       alert("enter your name!");
     else
-      if (fname=" ")
+      if (firstname=="")
         alert("enter your first name!");
       else 
-        if (lname=" ")
+        if (lastname=="")
           alert("enter your last name!");
         else
-          alert("your name is " + fname + " " + lname+"-san");
-    
+          alert("your name is " + firstname + " " + lastname+"-san");
+  }
 </script>
   
 </body>
