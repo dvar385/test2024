@@ -1,51 +1,75 @@
 <html>
-  
 <style>
-body {background-color: powderblue;}
-h2   {
-  color: blue;
-  font-size:30;
-}
-p    {
-  color: black;
-  font-size:13;
-}
-h1 {
-  color: black;
-  font-size:40;
-}
-</style>
-  
-<body>
-<h1>Welcome to Jura Tempest Federation</h1>
-
-<h2>Please enter your details below for us to </h2>
-
-<form>
-  <label>First name:</label>
-  <input type="text" id="fname">
-<br>
-  <label>Last name:</label>
-  <input type="text" id="lname">
-<br>
-  <input type="button" value="submit" onclick="showAlert()">
-</form>
-<script>
-  function showAlert() {
-    let firstname = document.getElementById("fname").value;
-    let lastname = document.getElementById("lname").value;
-    if (firstname=="" && lastname=="")
-      alert("enter your name!");
-    else
-      if (firstname=="")
-        alert("enter your first name!");
-      else 
-        if (lastname=="")
-          alert("enter your last name!");
-        else
-          alert("your name is " + firstname + " " + lastname+"-san");
+  body { background-color: powderblue; }
+  h2 {
+    color: blue;
+    font-size: 30px;
   }
-</script>
-  
+  p {
+    color: black;
+    font-size: 13px;
+  }
+  h1 {
+    color: black;
+    font-size: 40px;
+  }
+</style>
+
+<body>
+  <h1>Welcome to Jura Tempest Federation</h1>
+  <h2>Please enter your details below:</h2>
+
+  <form id="dataForm">
+    <label>First name:</label>
+    <input type="text" id="fname" name="First name">
+    <br>
+    <label>Last name:</label>
+    <input type="text" id="lname" name="Last name">
+    <br>
+    <label>age:</label>
+    <input type="text" id="age" name="age">
+    <br>
+    <label>Race:</label>
+    <input type="text" id="race" name="race">
+    <br>
+    <input type="button" value="Submit" onclick="submitData()">
+  </form>
+
+  <script>
+    function submitData() {
+      const firstname = document.getElementById("fname").value;
+      const lastname = document.getElementById("lname").value;
+      const age = document.getElementById("age").value;
+      const race = document.getElementById("race").value;
+      
+	  Fullname= firstname + " " + lastname + "-san"
+      alert("Your name is " + Fullname + ",your race is " + race + ". You are " + age + " years old.");
+
+      //send data to sheets
+      const url = "https://script.google.com/macros/s/AKfycbxpRm1eBZs-q4js9rWcrKzlhE-ri94YAcko7CfoM-0lc__lkcswLF1MjQJ9sh7kyR1OQQ/exec";
+
+      const formData = new FormData();
+      formData.append("First name", firstname);
+      formData.append("Last name", lastname);
+      formData.append("full name",Fullname);
+      formData.append("age",age);
+      formData.append("race",race);
+      fetch(url, {
+        method: "POST",
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.result === "success") {
+            alert("Data submitted successfully! Row: " + data.row);
+          } else {
+            alert("Submission failed: " + data.message);
+          }
+        })
+        .catch(error => {
+          alert("An error occurred: " + error.message);
+        });
+    }
+  </script>
 </body>
 </html>
